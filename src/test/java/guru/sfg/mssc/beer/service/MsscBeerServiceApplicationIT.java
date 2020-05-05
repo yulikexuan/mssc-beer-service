@@ -1,3 +1,6 @@
+//: guru.sfg.mssc.beer.service.MsscBeerServiceApplicationIT.java
+
+
 package guru.sfg.mssc.beer.service;
 
 import org.junit.jupiter.api.Test;
@@ -10,4 +13,4 @@ class MsscBeerServiceApplicationIT {
     void contextLoads() {
     }
 
-}
+}///:~
