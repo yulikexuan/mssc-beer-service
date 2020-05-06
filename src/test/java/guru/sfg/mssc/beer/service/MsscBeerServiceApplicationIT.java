@@ -13,6 +13,7 @@ class MsscBeerServiceApplicationIT {
 
     @Test
     void contextLoads() {
+        System.out.println(">>>>>>> Loading Context ... ...");
     }
 
 }///:~
