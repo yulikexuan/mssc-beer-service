@@ -4,9 +4,9 @@
 package guru.sfg.mssc.beer.service.web.controller;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.sfg.mssc.beer.service.web.model.BeerDto;
+import guru.sfg.mssc.beer.service.web.model.BeerStyleEnum;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -60,7 +60,11 @@ class BeerControllerTest {
             throws Exception {
 
         // Given
-        BeerDto beerDto = BeerDto.builder().build();
+        BeerDto beerDto = BeerDto.builder()
+                .beerName("heineken")
+                .beerStyle(BeerStyleEnum.STOUT)
+                .upc(Long.toString(System.currentTimeMillis()))
+                .build();
         String beerDtoJson = this.objectMapper.writeValueAsString(beerDto);
 
         // When & Then
@@ -76,7 +80,11 @@ class BeerControllerTest {
             throws Exception {
 
         // Given
-        BeerDto beerDto = BeerDto.builder().build();
+        BeerDto beerDto = BeerDto.builder()
+                .beerName("heineken")
+                .beerStyle(BeerStyleEnum.STOUT)
+                .upc(Long.toString(System.currentTimeMillis()))
+                .build();
         String beerDtoJson = this.objectMapper.writeValueAsString(beerDto);
 
         // When & Then
