@@ -4,6 +4,7 @@
 package guru.sfg.mssc.beer.service.web.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.sfg.mssc.beer.service.web.model.BeerDto;
 import guru.sfg.mssc.beer.service.web.model.BeerStyleEnum;
@@ -18,8 +19,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.UUID;
 import java.util.function.UnaryOperator;
 
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @WebMvcTest(BeerController.class)
@@ -93,6 +95,31 @@ class BeerControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(beerDtoJson))
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void test_Given_An_Invalid_Beer_When_Update_Then_Get_List_Of_Error_Messages()
+            throws Exception {
+
+        // Given
+        BeerDto beerDto = BeerDto.builder()
+                .id(UUID.randomUUID())
+                .build();
+        String beerDtoJson = this.objectMapper.writeValueAsString(beerDto);
+
+        // When
+        this.mockMvc.perform(put(uriFunc.apply(this.uuid))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(beerDtoJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(
+                        containsString("id must be null")))
+                .andExpect(content().string(
+                        containsString("beerName must not be blank")))
+                .andExpect(content().string(
+                        containsString("beerStyle must not be null")))
+                .andExpect(content().string(
+                        containsString("upc must not be blank")));
     }
 
 }///:~
