@@ -1,12 +1,11 @@
-//: guru.sfg.mssc.beer.service.domain.Beer.java
+//: guru.sfg.mssc.beer.service.domain.model.Beer.java
 
 
-package guru.sfg.mssc.beer.service.domain;
+package guru.sfg.mssc.beer.service.domain.model;
 
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;

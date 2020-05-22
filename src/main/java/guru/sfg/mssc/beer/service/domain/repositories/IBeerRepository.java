@@ -1,10 +1,10 @@
-//: guru.sfg.mssc.beer.service.repositories.IBeerRepository.java
+//: guru.sfg.mssc.beer.service.domain.repositories.IBeerRepository.java
 
 
-package guru.sfg.mssc.beer.service.repositories;
+package guru.sfg.mssc.beer.service.domain.repositories;
 
 
-import guru.sfg.mssc.beer.service.domain.Beer;
+import guru.sfg.mssc.beer.service.domain.model.Beer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

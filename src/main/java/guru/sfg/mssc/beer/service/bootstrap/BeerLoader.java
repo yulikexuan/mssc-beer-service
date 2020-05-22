@@ -4,8 +4,8 @@
 package guru.sfg.mssc.beer.service.bootstrap;
 
 
-import guru.sfg.mssc.beer.service.domain.Beer;
-import guru.sfg.mssc.beer.service.repositories.IBeerRepository;
+import guru.sfg.mssc.beer.service.domain.model.Beer;
+import guru.sfg.mssc.beer.service.domain.repositories.IBeerRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

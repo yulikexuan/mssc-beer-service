@@ -28,8 +28,14 @@ public class BeerDto implements Serializable {
 
     @Null
     private UUID id;
+
+    @Null
     private Integer version;
+
+    @Null
     private OffsetDateTime createdDate;
+
+    @Null
     private OffsetDateTime lastModifiedDate;
 
     @NotBlank
@@ -41,6 +47,8 @@ public class BeerDto implements Serializable {
     @NotBlank
     private String upc;
 
+    @NotNull
+    @Positive
     private BigDecimal price;
     private Integer quantityOnHand;
 
