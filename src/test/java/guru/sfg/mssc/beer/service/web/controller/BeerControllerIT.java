@@ -1,13 +1,13 @@
-//: guru.sfg.mssc.beer.service.web.controller.BeerControllerTest.java
+//: guru.sfg.mssc.beer.service.web.controller.BeerControllerIT.java
 
 
 package guru.sfg.mssc.beer.service.web.controller;
 
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.sfg.mssc.beer.service.web.model.BeerDto;
 import guru.sfg.mssc.beer.service.web.model.BeerStyleEnum;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -16,23 +16,26 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 import java.util.function.UnaryOperator;
 
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @WebMvcTest(BeerController.class)
 @DisplayName("CompletableFuture Test - ")
 @ExtendWith(MockitoExtension.class)
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-class BeerControllerTest {
+class BeerControllerIT {
 
     static final String REQUEST_MAPPING = "/api/v1/beer";
 
     private String uuid;
+    private String name;
 
     @Autowired
     private MockMvc mockMvc;
@@ -43,9 +46,18 @@ class BeerControllerTest {
     private UnaryOperator<String> uriFunc = uuid ->
             String.format("%s/%s", REQUEST_MAPPING, uuid);
 
+    private BeerDto dto;
+
     @BeforeEach
     void setUp() {
         this.uuid = UUID.randomUUID().toString();
+        this.name = RandomStringUtils.randomAlphabetic(10);
+        this.dto = BeerDto.builder()
+                .beerName(this.name)
+                .beerStyle(BeerStyleEnum.STOUT)
+                .upc(Long.toString(System.currentTimeMillis()))
+                .price(BigDecimal.valueOf(12.00))
+                .build();
     }
 
     @Test
@@ -62,12 +74,7 @@ class BeerControllerTest {
             throws Exception {
 
         // Given
-        BeerDto beerDto = BeerDto.builder()
-                .beerName("heineken")
-                .beerStyle(BeerStyleEnum.STOUT)
-                .upc(Long.toString(System.currentTimeMillis()))
-                .build();
-        String beerDtoJson = this.objectMapper.writeValueAsString(beerDto);
+        String beerDtoJson = this.objectMapper.writeValueAsString(this.dto);
 
         // When & Then
         this.mockMvc.perform(
@@ -82,12 +89,7 @@ class BeerControllerTest {
             throws Exception {
 
         // Given
-        BeerDto beerDto = BeerDto.builder()
-                .beerName("heineken")
-                .beerStyle(BeerStyleEnum.STOUT)
-                .upc(Long.toString(System.currentTimeMillis()))
-                .build();
-        String beerDtoJson = this.objectMapper.writeValueAsString(beerDto);
+        String beerDtoJson = this.objectMapper.writeValueAsString(this.dto);
 
         // When & Then
         this.mockMvc
