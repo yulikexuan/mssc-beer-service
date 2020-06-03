@@ -5,6 +5,7 @@ package guru.sfg.mssc.beer.service.web.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import guru.sfg.mssc.beer.service.domain.services.BeerService;
 import guru.sfg.mssc.beer.service.web.model.BeerDto;
 import guru.sfg.mssc.beer.service.web.model.BeerStyleEnum;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -13,6 +14,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -27,10 +29,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @WebMvcTest(BeerController.class)
-@DisplayName("CompletableFuture Test - ")
+@DisplayName("Beer's Controller Test - ")
 @ExtendWith(MockitoExtension.class)
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class BeerControllerIT {
+
+    static final String BEER_UPC = "0631234200036";
 
     static final String REQUEST_MAPPING = "/api/v1/beer";
 
@@ -42,6 +46,9 @@ class BeerControllerIT {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    @MockBean
+    private BeerService beerService;
 
     private UnaryOperator<String> uriFunc = uuid ->
             String.format("%s/%s", REQUEST_MAPPING, uuid);
@@ -55,7 +62,7 @@ class BeerControllerIT {
         this.dto = BeerDto.builder()
                 .beerName(this.name)
                 .beerStyle(BeerStyleEnum.STOUT)
-                .upc(Long.toString(System.currentTimeMillis()))
+                .upc(BEER_UPC)
                 .price(BigDecimal.valueOf(12.00))
                 .build();
     }

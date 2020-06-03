@@ -34,7 +34,7 @@ public class BeerController {
 
     @PostMapping
     public ResponseEntity saveNewBeer(@Valid @RequestBody BeerDto beerDto) {
-        
+
         return new ResponseEntity(this.beerService.saveNewBeer(beerDto),
                 HttpStatus.CREATED);
     }
